@@ -6,12 +6,12 @@ var PostBox = React.createClass({
     };
   },
 
-  loadPostsFromServer: function (posts) {
+  loadPostsFromServer: function () {
     $.ajax({
       method: 'GET',
       url: 'https://www.reddit.com/r/gaming.json',
       dataType: 'json',
-      data: posts,
+      // data: posts,
       success: function (data) {
         console.log(data.data.children);
         this.setState({ data: data.data.children });
@@ -21,7 +21,7 @@ var PostBox = React.createClass({
 
   componentDidMount: function () {
     this.loadPostsFromServer();
-    setInterval(this.loadPostsFromServer, 5000);
+    setInterval(this.loadPostsFromServer, 3000);
   },
 
   render: function () {
@@ -41,7 +41,7 @@ var PostForm = React.createClass({
         <div key={index}>
           <h2>Presented by: {post.data.author}</h2>
           <h4><a href={post.data.url}>{post.data.title}</a></h4>
-          <div><img src={post.data.thumbnail} /></div>
+          <div><a href={post.data.url}><img src={post.data.thumbnail} /></a></div>
         </div>
       );
     });
